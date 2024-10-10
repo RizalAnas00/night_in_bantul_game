@@ -13,3 +13,15 @@ config_version=5
 config/name="Night in Bantul"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
+
+[file_customization]
+
+folder_colors={
+"res://Enemy/": "red",
+"res://Environment/": "yellow",
+"res://Player/": "teal"
+}
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0
