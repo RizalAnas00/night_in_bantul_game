@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dsfi6ryxwhfcr"
-path="res://.godot/imported/Decorations.png-da86795f4121779e8a86abeb00ca2dce.ctex"
+uid="uid://dgf4fyypiwp83"
+path="res://.godot/imported/Tilemap_Flat.png-83b8b5fdd03b5e6d1d9d528f1378d61e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Environment/Tileset/Decorations.png"
-dest_files=["res://.godot/imported/Decorations.png-da86795f4121779e8a86abeb00ca2dce.ctex"]
+source_file="res://Environment/Tileset/Tilemap_Flat.png"
+dest_files=["res://.godot/imported/Tilemap_Flat.png-83b8b5fdd03b5e6d1d9d528f1378d61e.ctex"]
 
 [params]
 
