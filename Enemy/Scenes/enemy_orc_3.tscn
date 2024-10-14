@@ -1690,6 +1690,7 @@ height = 22.0
 
 [node name="Orc3" type="CharacterBody2D"]
 scale = Vector2(2, 2)
+motion_mode = 1
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_k6c1p")

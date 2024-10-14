@@ -1690,11 +1690,14 @@ height = 20.0
 
 [node name="Orc2" type="CharacterBody2D"]
 scale = Vector2(2, 2)
+motion_mode = 1
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_63ryj")
 animation = &"attack_walk_front"
 autoplay = "idle_front"
+frame = 4
+frame_progress = 0.898885
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -5)
