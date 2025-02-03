@@ -1,8 +1,7 @@
-[gd_scene load_steps=56 format=3 uid="uid://lr12co1pryo3"]
+[gd_scene load_steps=55 format=3 uid="uid://lr12co1pryo3"]
 
 [ext_resource type="Script" path="res://Scripts/player_1.gd" id="1_1io0d"]
 [ext_resource type="Texture2D" uid="uid://ce4u3vjx7bs5y" path="res://Player/Assets/Sprites/Warrior_Red.png" id="1_os0t4"]
-[ext_resource type="PackedScene" uid="uid://bgqc6ucmtb5sh" path="res://Scenes/hurtbox.tscn" id="3_ysaex"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_okpy5"]
 atlas = ExtResource("1_os0t4")
@@ -383,32 +382,59 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_53li4"]
-radius = 4.0
+[sub_resource type="GDScript" id="GDScript_3h8m6"]
+script/source = "extends CharacterBody2D
+
+@onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
+
+var SPEED: int = 80
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	_process_input()
+	move_and_slide()
+	
+func _process_input():
+	var direction = Input.get_vector(\"left\",\"right\",\"up\",\"down\")
+	
+	if direction > 0 :
+		animated_sprite_2d.flip_h = false
+	if direction < 0  :
+		animated_sprite_2d.flip_h = true
+		
+	if direction != 0:
+		velocity.x = direction * SPEED
+	else:
+		velocity.x = move_toward(velocity.x, 0, SPEED)
+"
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fngt7"]
+radius = 15.0
+height = 44.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_im0y8"]
 size = Vector2(33.5, 85.5)
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_o8d46"]
-radius = 14.0
-height = 44.0
-
-[node name="CharacterBody2D" type="CharacterBody2D" groups=["Player"]]
-y_sort_enabled = true
+[node name="CharacterBody2D" type="CharacterBody2D"]
+motion_mode = 1
 script = ExtResource("1_1io0d")
-SPEED = 300.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 z_index = 4
 sprite_frames = SubResource("SpriteFrames_n70yq")
-animation = &"attack_side_1"
+animation = &"idle_front"
+autoplay = "idle_front"
+frame = 3
+frame_progress = 0.596252
+script = SubResource("GDScript_3h8m6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-z_index = 4
-y_sort_enabled = true
-position = Vector2(0, 28)
-rotation = 1.5708
-shape = SubResource("CapsuleShape2D_53li4")
+position = Vector2(0, 1)
+shape = SubResource("CapsuleShape2D_fngt7")
 
 [node name="Sword" type="Area2D" parent="."]
 visible = false
@@ -416,10 +442,3 @@ visible = false
 [node name="HitBox" type="CollisionShape2D" parent="Sword"]
 position = Vector2(65, -3.25)
 shape = SubResource("RectangleShape2D_im0y8")
-
-[node name="Hurtbox" parent="." instance=ExtResource("3_ysaex")]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
-z_index = 4
-position = Vector2(0, 1)
-shape = SubResource("CapsuleShape2D_o8d46")
