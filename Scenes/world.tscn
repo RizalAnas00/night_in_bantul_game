@@ -1,13 +1,14 @@
-[gd_scene load_steps=24 format=4 uid="uid://wx3wman2v4dp"]
+[gd_scene load_steps=27 format=4 uid="uid://wx3wman2v4dp"]
 
 [ext_resource type="Texture2D" uid="uid://ca127dsmlmdo5" path="res://Environment/Tileset/Water.png" id="1_88qpu"]
-[ext_resource type="Script" path="res://Scripts/world.gd" id="1_ver1s"]
+[ext_resource type="Script" uid="uid://tu1ulgicw05h" path="res://Scripts/world.gd" id="1_ver1s"]
 [ext_resource type="Texture2D" uid="uid://ds8k3nx61fyne" path="res://Environment/Deco/Foam.png" id="2_s2e28"]
 [ext_resource type="Texture2D" uid="uid://dgf4fyypiwp83" path="res://Environment/Tileset/Tilemap_Flat.png" id="3_g4oxv"]
 [ext_resource type="Texture2D" uid="uid://cojlyhf6311eg" path="res://Environment/Deco/Tree.png" id="4_ok8ni"]
 [ext_resource type="Texture2D" uid="uid://dsc3dt7d4af2w" path="res://Environment/Tileset/Tilemap_Elevation.png" id="5_rp218"]
 [ext_resource type="PackedScene" uid="uid://lr12co1pryo3" path="res://Scenes/player_1.tscn" id="6_llsup"]
 [ext_resource type="Texture2D" uid="uid://bwq272q7f6pjh" path="res://Environment/Tileset/autotiletest.png" id="7_8l2b3"]
+[ext_resource type="PackedScene" uid="uid://dhd4sl1jp1qa0" path="res://Scenes/tree.tscn" id="8_0fj1v"]
 [ext_resource type="PackedScene" uid="uid://dfgy40mhpor5w" path="res://Enemy 2/Scenes/goblin_1.tscn" id="9_qy0fy"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nl8h3"]
@@ -475,6 +476,8 @@ terrain_set_0/terrain_0/name = "Terrain 0"
 terrain_set_0/terrain_0/color = Color(0.699259, 0.0500476, 0.330959, 1)
 sources/1 = SubResource("TileSetAtlasSource_dd0l5")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5v1tr"]
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xbo3o"]
 texture = ExtResource("4_ok8ni")
 texture_region_size = Vector2i(192, 192)
@@ -488,10 +491,14 @@ texture_region_size = Vector2i(192, 192)
 0:0/0/y_sort_origin = -1
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4.25, 11.25, 9.25, 10.25, 16.25, 26.25, 13.8898, 32, -13.0961, 32, -12.75, 24.25)
 
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_ikia7"]
+scenes/1/scene = ExtResource("8_0fj1v")
+
 [sub_resource type="TileSet" id="TileSet_h0c6j"]
 tile_size = Vector2i(64, 64)
 physics_layer_0/collision_layer = 1
 sources/1 = SubResource("TileSetAtlasSource_xbo3o")
+sources/2 = SubResource("TileSetScenesCollectionSource_ikia7")
 
 [node name="World" type="Node2D"]
 y_sort_enabled = true
@@ -530,16 +537,19 @@ tile_set = SubResource("TileSet_pt2i6")
 [node name="TreeLayer" type="TileMapLayer" parent="."]
 z_index = 4
 y_sort_enabled = true
-tile_map_data = PackedByteArray("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")
+material = SubResource("ShaderMaterial_5v1tr")
+tile_map_data = PackedByteArray("AADt/xsAAgAAAAAAAQDq/xsAAgAAAAAAAQDp/xcAAgAAAAAAAQDq/xcAAgAAAAAAAQDr/xYAAgAAAAAAAQDv/xgAAgAAAAAAAQDs/xgAAgAAAAAAAQDu/x0AAgAAAAAAAQDz/xoAAgAAAAAAAQDy/xYAAgAAAAAAAQDm/xwAAgAAAAAAAQDn/xwAAgAAAAAAAQDm/x0AAgAAAAAAAQDn/x0AAgAAAAAAAQDg/xgAAgAAAAAAAQDh/xgAAgAAAAAAAQDi/xgAAgAAAAAAAQDg/xYAAgAAAAAAAQDh/xYAAgAAAAAAAQDi/xYAAgAAAAAAAQDo/xgAAgAAAAAAAQA=")
 tile_set = SubResource("TileSet_h0c6j")
 
+[node name="_tree" parent="TreeLayer" instance=ExtResource("8_0fj1v")]
+
 [node name="player_1" parent="." instance=ExtResource("6_llsup")]
-position = Vector2(-1277, 1745)
+position = Vector2(-1784, 1495)
 scale = Vector2(0.8, 0.8)
 motion_mode = 1
 
 [node name="Camera2D" type="Camera2D" parent="player_1"]
-zoom = Vector2(0.1, 0.1)
+zoom = Vector2(0.5, 0.5)
 
 [node name="goblin_1" parent="." instance=ExtResource("9_qy0fy")]
 z_index = 4

@@ -13,8 +13,9 @@ var zoom_val
 @onready var water_layer: TileMapLayer = $WaterLayer
 @onready var tree_layer: TileMapLayer = $TreeLayer
 @onready var foam_water: TileMapLayer = $FoamWater
-@onready var camera_2d: Camera2D = $CharacterBody2D/Camera2D
 @onready var cliff_rocks: TileMapLayer = $CliffRocks
+@onready var camera_2d: Camera2D = $player_1/Camera2D
+@onready var player_1: CharacterBody2D = $player_1
 
 var width: int = 156
 var height: int = 156
@@ -52,7 +53,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	get_scene_of_tree(player_1.global_position)
 	
 func generate_world():
 	# First, populate sand and grass using terrain.
@@ -66,7 +67,7 @@ func generate_world():
 			if noise_value >= 0.0:
 				if noise_value > 0.1:
 					if noise_value < 0.6 and noise_value > 0.18 and tree_noise_value > 0.4:
-						tree_layer.set_cell(Vector2i(x, y), source_id_tree, tree_atlas)
+						tree_layer.set_cell(Vector2i(x, y), 0, Vector2i(0,0), 1)
 					elif noise_value > 0.9:
 						cliff_tiles_arr.append(Vector2i(x,y))
 					grass_tiles_arr.append(Vector2i(x, y))
@@ -104,10 +105,40 @@ func place_foam_around_sand():
 				foam_water.set_cell(sand_pos, source_id_foamwater, foam_atlas)
 
 func _input(event: InputEvent) -> void:
+	var min_zoom := 0.5
+	var max_zoom := 1.5
+
 	if Input.is_action_just_pressed("zoom_out"):
-		zoom_val = camera_2d.zoom.x + 0.1
-		camera_2d.zoom = Vector2(zoom_val, zoom_val)
+		var target_zoom = camera_2d.zoom.x + 0.1
+		if target_zoom <= max_zoom:
+			zoom_val = target_zoom
+			camera_2d.zoom = Vector2(zoom_val, zoom_val)
 		
 	if Input.is_action_just_pressed("zoom_in"):
-		zoom_val = camera_2d.zoom.x - 0.1
-		camera_2d.zoom = Vector2(zoom_val, zoom_val)
+		var target_zoom = camera_2d.zoom.x - 0.1
+		if target_zoom >= min_zoom:
+			zoom_val = target_zoom
+			camera_2d.zoom = Vector2(zoom_val, zoom_val)
+
+func get_scene_of_tree(pos: Vector2) -> void:
+	for child in tree_layer.get_children():
+		if child is StaticBody2D:
+			var tree_pos = child.global_position
+			var tween = get_tree().create_tween()
+			tween.set_trans(Tween.TRANS_SINE)
+			tween.set_ease(Tween.EASE_IN_OUT)
+
+			if tree_pos.y > pos.y and abs(tree_pos.x - pos.x) < 50 and abs(tree_pos.y - pos.y) < 140:
+				tween.tween_property(
+					child.animated_sprite_2d, 
+					"self_modulate", 
+					Color(1, 1, 1, 0.2),
+					0.1
+				)
+			else:
+				tween.tween_property(
+					child.animated_sprite_2d, 
+					"self_modulate", 
+					Color(1, 1, 1, 1),
+					0.24
+				)

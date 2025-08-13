@@ -1,11 +1,11 @@
 [gd_scene load_steps=40 format=3 uid="uid://dfgy40mhpor5w"]
 
 [ext_resource type="Texture2D" uid="uid://sj1iqu03ancd" path="res://Enemy 2/Sprite/Torch/Blue/Torch_Blue.png" id="1_2l444"]
-[ext_resource type="Script" path="res://Enemy 2/Scripts/goblin_1.gd" id="1_gny8w"]
-[ext_resource type="Script" path="res://Enemy 2/Scripts/state_machine.gd" id="2_hh323"]
-[ext_resource type="Script" path="res://Enemy 2/Scripts/EnemyIdle.gd" id="3_ptmeo"]
-[ext_resource type="Script" path="res://Enemy 2/Scripts/EnemyChase.gd" id="5_xe62i"]
-[ext_resource type="Script" path="res://Enemy 2/Scripts/EnemyAttack.gd" id="6_e3bx5"]
+[ext_resource type="Script" uid="uid://d3asm5f5yoqxf" path="res://Enemy 2/Scripts/goblin_1.gd" id="1_gny8w"]
+[ext_resource type="Script" uid="uid://db4xim4jkm3qi" path="res://Enemy 2/Scripts/state_machine.gd" id="2_hh323"]
+[ext_resource type="Script" uid="uid://450s0yo4od1h" path="res://Enemy 2/Scripts/EnemyIdle.gd" id="3_ptmeo"]
+[ext_resource type="Script" uid="uid://cncyfk3d4op8l" path="res://Enemy 2/Scripts/EnemyChase.gd" id="5_xe62i"]
+[ext_resource type="Script" uid="uid://bc6ykvtw5vin2" path="res://Enemy 2/Scripts/EnemyAttack.gd" id="6_e3bx5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jivqi"]
 atlas = ExtResource("1_2l444")

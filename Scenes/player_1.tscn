@@ -1,6 +1,6 @@
 [gd_scene load_steps=56 format=3 uid="uid://lr12co1pryo3"]
 
-[ext_resource type="Script" path="res://Scripts/player_1.gd" id="1_1io0d"]
+[ext_resource type="Script" uid="uid://cl4ohiyicuawq" path="res://Scripts/player_1.gd" id="1_1io0d"]
 [ext_resource type="Texture2D" uid="uid://ce4u3vjx7bs5y" path="res://Player/Assets/Sprites/Warrior_Red.png" id="1_os0t4"]
 [ext_resource type="PackedScene" uid="uid://bgqc6ucmtb5sh" path="res://Scenes/hurtbox.tscn" id="3_ysaex"]
 

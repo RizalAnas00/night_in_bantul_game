@@ -1,53 +1,74 @@
-[gd_scene load_steps=8 format=3 uid="uid://dhd4sl1jp1qa0"]
+[gd_scene load_steps=11 format=3 uid="uid://dhd4sl1jp1qa0"]
 
-[ext_resource type="Texture2D" uid="uid://cojlyhf6311eg" path="res://Environment/Deco/Tree.png" id="1_luuco"]
+[ext_resource type="Texture2D" uid="uid://cojlyhf6311eg" path="res://Environment/Deco/Tree.png" id="1_0vwjc"]
+[ext_resource type="Shader" uid="uid://jv4egfoybh3p" path="res://Scenes/player.gdshader" id="1_l7sa7"]
+[ext_resource type="Script" uid="uid://l3li18ofwip3" path="res://Scripts/tree.gd" id="1_rsuno"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_pe21p"]
-atlas = ExtResource("1_luuco")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l3oha"]
+shader = ExtResource("1_l7sa7")
+shader_parameter/enabled = false
+shader_parameter/player_pos = Vector2(0, 0)
+shader_parameter/max_distance = 75.0
+shader_parameter/num = 0.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rsuno"]
+atlas = ExtResource("1_0vwjc")
 region = Rect2(0, 0, 192, 192)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_qoc4v"]
-atlas = ExtResource("1_luuco")
+[sub_resource type="AtlasTexture" id="AtlasTexture_l7sa7"]
+atlas = ExtResource("1_0vwjc")
 region = Rect2(192, 0, 192, 192)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_apssp"]
-atlas = ExtResource("1_luuco")
+[sub_resource type="AtlasTexture" id="AtlasTexture_l3oha"]
+atlas = ExtResource("1_0vwjc")
 region = Rect2(384, 0, 192, 192)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_2q4r8"]
-atlas = ExtResource("1_luuco")
+[sub_resource type="AtlasTexture" id="AtlasTexture_m36md"]
+atlas = ExtResource("1_0vwjc")
 region = Rect2(576, 0, 192, 192)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_uhxl0"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_q8wpw"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_pe21p")
+"texture": SubResource("AtlasTexture_rsuno")
+}, {
+"duration": 1.6,
+"texture": SubResource("AtlasTexture_l7sa7")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_qoc4v")
+"texture": SubResource("AtlasTexture_l3oha")
 }, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_apssp")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_2q4r8")
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_m36md")
 }],
 "loop": true,
 "name": &"default",
-"speed": 5.0
+"speed": 6.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dboin"]
-radius = 15.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jqx0n"]
+size = Vector2(21, 21)
 
-[node name="CharacterBody2D" type="CharacterBody2D"]
-motion_mode = 1
+[node name="Tree" type="StaticBody2D" groups=["trees"]]
+modulate = Color(0.815686, 1, 0.752941, 1)
+material = SubResource("ShaderMaterial_l3oha")
+disable_mode = 1
+script = ExtResource("1_rsuno")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_uhxl0")
-frame_progress = 0.258481
+position = Vector2(0, -52)
+sprite_frames = SubResource("SpriteFrames_q8wpw")
+autoplay = "default"
+frame_progress = 0.277077
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1, 63)
-shape = SubResource("CapsuleShape2D_dboin")
+position = Vector2(1, 10)
+shape = SubResource("RectangleShape2D_jqx0n")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(3.8147e-06, -52)
+scale = Vector2(12.1, 11.6)
+
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
